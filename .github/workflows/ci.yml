@@ -4,12 +4,14 @@ on:
   push:
     branches: [ main ]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  build:
+  quality:
+    name: Quality gate
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,19 +24,32 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Run scripts (if present)
-        run: |
-          node - <<'NODE'
-          const { execSync } = require('node:child_process');
-          const pkg = require('./package.json');
-          const scripts = pkg.scripts || {};
-          const order = ['lint', 'typecheck', 'test', 'build'];
-          for (const name of order) {
-            if (scripts[name]) {
-              console.log(`Running: npm run -s ${name}`);
-              execSync(`npm run -s ${name}`, { stdio: 'inherit' });
-            } else {
-              console.log(`Skipping: ${name} (no script)`);
-            }
-          }
-          NODE
+      - name: Lint
+        run: npm run lint --if-present
+
+      - name: Typecheck
+        run: npm run typecheck --if-present
+
+      - name: Test
+        run: npm run test --if-present
+
+      - name: Build
+        run: npm run build
+
+  security:
+    name: Security audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: npm audit
+        run: npm audit --audit-level=moderate
+        continue-on-error: true
