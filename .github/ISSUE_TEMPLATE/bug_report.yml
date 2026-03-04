@@ -1,27 +1,42 @@
 name: Bug report
-description: Report a problem
-title: "bug: "
-labels: [bug]
+description: Report a problem or regression.
+labels: ["bug"]
 body:
   - type: textarea
-    id: what
+    id: summary
     attributes:
-      label: What happened?
-      description: What did you expect to happen?
+      label: Summary
+      description: What happened? What did you expect?
+      placeholder: Clear, concise description.
     validations:
       required: true
+
   - type: textarea
     id: repro
     attributes:
       label: Steps to reproduce
+      description: Provide minimal steps.
       placeholder: |
         1.
         2.
         3.
     validations:
       required: true
+
   - type: textarea
-    id: env
+    id: logs
+    attributes:
+      label: Logs / screenshots
+      description: Paste logs (redact secrets) or attach screenshots.
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: environment
     attributes:
       label: Environment
-      description: Node version, OS, browser, etc.
+      description: Node version, OS, browser.
+      placeholder: "Node 20.x, macOS, Chrome 122"
+    validations:
+      required: false

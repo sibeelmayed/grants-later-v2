@@ -1,30 +1,26 @@
 # Contributing
 
-Thank you for considering contributing to this project!
+## Development
+Prereqs: Node 20+ recommended.
 
-## Getting started
-
-1. Fork the repository
-2. Create a branch: `git checkout -b feat/your-feature`
-3. Make your changes
-4. Run CI locally: `npm ci && npm run lint && npm run build`
-5. Commit using [Conventional Commits](https://www.conventionalcommits.org/): `feat(scope): description`
-6. Open a pull request against `main`
-
-## Commit message format
-
-```
-type(scope): description
-
-# Types: feat, fix, chore, docs, refactor, test, ci
+```bash
+npm ci
+npm run dev
 ```
 
-## Code style
+## Scripts
+```bash
+npm run lint
+npm run build
+```
 
-- TypeScript strict mode enforced
-- ESLint rules enforced in CI
-- Tailwind CSS for styling
+## Branches
+- Use `feat/*`, `fix/*`, `docs/*`, `chore/*`.
 
-## Questions?
+## Commits
+Use Conventional Commits (e.g., `feat: ...`, `fix: ...`, `chore: ...`).
 
-Open a GitHub issue with the `question` label.
+## Pull requests
+- Keep PRs small and focused.
+- Ensure CI is green before requesting review.
+- Do not include secrets.
