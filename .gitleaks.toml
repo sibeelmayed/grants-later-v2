@@ -1,0 +1,16 @@
+title = "gitleaks config"
+
+[allowlist]
+  description = "Allow common non-secret placeholders and examples"
+  paths = [
+    '''.env.example''',
+    '''**/*.md''',
+    '''CHANGELOG.md'''
+  ]
+
+  regexes = [
+    # Example placeholders used in docs
+    '''example''',
+    '''changeme''',
+    '''placeholder'''
+  ]
